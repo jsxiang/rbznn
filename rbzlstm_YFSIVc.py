@@ -81,9 +81,9 @@ history=model.fit(X_train, y_train, batch_size=512, nb_epoch=500, shuffle=True, 
 
 
 out=model.predict(X_train, batch_size=512,verbose=1)
+plt.figure(1)
 plt.plot(y_train,out,'ro')
 
-model.summary()
 
 
 
@@ -98,14 +98,13 @@ print intercept
 
 X_test=np.transpose(testmat['tr'][0][0][0],axes=(0,2,1))
 y_test=np.array(testmat['tr'][0][0][1]).squeeze()
-
 y_out=model.predict(X_test, batch_size=512,verbose=1)
+plt.figure(2)
 plt.plot(y_test,y_out,'ro')
 plt.ylabel('model prediction')
 plt.xlabel('FACS-seq data')
 
 model.summary()
-
 
 import scipy
 out=y_out.squeeze()
@@ -116,13 +115,7 @@ print slope
 print intercept
 
 
-
-
-print history.history.keys()
-
-
-
-
+plt.figure(3)
 plt.plot(history.history['loss'])
 plt.plot(history.history['val_loss'])
 plt.title('model loss')
