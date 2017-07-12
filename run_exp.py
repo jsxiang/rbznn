@@ -5,7 +5,7 @@ import subprocess as sp
 
 all_options = [
     ['--n_layers', 0, 1, 2, 3, 4],
-    ['--n_LSTM', 0, 1, 2, 3, 4],
+    ['--n_LSTM', 1, 2, 3, 4],
     ['--n_units', 10, 16, 32, 64, 128, 256, 512],
     ['--n_LSTM_units', 64, 128, 256, 32, 16, 10],
     #['--batch_size', 128, 256, 512, 64, 32],
