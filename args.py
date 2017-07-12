@@ -5,6 +5,9 @@ parser.add_argument('--name', type=str, default='')
 parser.add_argument('--reg', type=float, default=1e-5)
 parser.add_argument('--dropout', type=float, default=0.2)
 
+parser.add_argument('--ks', type=int, default=3)
+parser.add_argument('--filters', type=int, default=16)
+
 parser.add_argument('--n_layers', type=int, default=1)
 parser.add_argument('--n_units', type=int, default=100)
 parser.add_argument('--n_LSTM_units', type=int, default=100)

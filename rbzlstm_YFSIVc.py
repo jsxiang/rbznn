@@ -56,16 +56,25 @@ n_LSTM_units = args.n_LSTM_units
 epochs = args.epochs
 batch_size = args.batch_size
 name = args.name
-
+kernel_size = args.ks
+filters = args.filters
 print('building model')
 nb_filters=32
 model = Sequential()
 for i in range(n_layers):
-    model.add(Dense(n_units, input_shape=(4,113)))
+    if i==0:
+        model.add(Convolution1D(filters, kernel_size, strides=1, pad="SAME", input_shape=(4,113)))
+        #model.add(Dense(n_units, input_shape=(4,113)))
+    else:
+        model.add(Convolution1D(filters, kernel_size, strides=1, pad="SAME"))
+        #model.add(Dense(n_units))
     model.add(Activation('relu'))
     model.add(Dropout(dropout))
 for i in range(n_LSTM):
-    model.add(LSTM(n_LSTM_units,  W_regularizer=l2(reg),return_sequences=True))#, input_shape=(100,113)))
+    if n_layers==0 and i==0:
+        model.add(LSTM(n_LSTM_units,  W_regularizer=l2(reg),return_sequences=True, input_shape=(4,113)))
+    else:
+        model.add(LSTM(n_LSTM_units,  W_regularizer=l2(reg),return_sequences=True))
     model.add(Activation('relu'))
     model.add(Dropout(dropout))
 

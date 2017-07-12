@@ -4,6 +4,8 @@ import subprocess as sp
 
 
 all_options = [
+    ['--ks', 1, 3, 5, 7, 9],
+    ['--filters', 16, 32, 64, 128, 256],
     ['--n_layers', 0, 1, 2, 3, 4],
     ['--n_LSTM', 1, 2, 3, 4],
     ['--n_units', 10, 16, 32, 64, 128, 256, 512],
