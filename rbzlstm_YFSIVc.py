@@ -111,8 +111,8 @@ plt.savefig('%s_train.png'%name)
 import scipy
 out=out.squeeze()
 slope, intercept, r_value, p_value, std_err = stats.linregress(y_train, out)
-print(name, "r = ",r_value)
-print(name, "r^2 = ",r_value**2)
+print(name, "train r = ",r_value)
+print(name, "train r^2 = ",r_value**2)
 
 
 X_test=np.transpose(testmat['tr'][0][0][0],axes=(0,2,1))
@@ -128,8 +128,8 @@ model.summary()
 import scipy
 out=y_out.squeeze()
 slope, intercept, r_value, p_value, std_err = stats.linregress(y_test, out)
-print(name, "r = ",r_value)
-print(name, "r^2 = ",r_value**2)
+print(name, "test r = ",r_value)
+print(name, "test r^2 = ",r_value**2)
 # print slope
 # print intercept
 
