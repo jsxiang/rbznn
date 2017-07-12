@@ -63,10 +63,10 @@ nb_filters=32
 model = Sequential()
 for i in range(n_layers):
     if i==0:
-        model.add(Convolution1D(filters, kernel_size, strides=1, pad="SAME", input_shape=(4,113)))
+        model.add(Convolution1D(filters, kernel_size, strides=1, padding="SAME", input_shape=(4,113)))
         #model.add(Dense(n_units, input_shape=(4,113)))
     else:
-        model.add(Convolution1D(filters, kernel_size, strides=1, pad="SAME"))
+        model.add(Convolution1D(filters, kernel_size, strides=1, padding="SAME"))
         #model.add(Dense(n_units))
     model.add(Activation('relu'))
     model.add(Dropout(dropout))
