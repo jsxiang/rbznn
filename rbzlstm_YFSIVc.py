@@ -27,9 +27,9 @@ print keras.__version__
 import numpy as np
 import h5py
 import scipy.io
-validmat = scipy.io.loadmat('sTRSV_valid.mat')
-testmat = scipy.io.loadmat('sTRSV_valid.mat')
-trainmat = scipy.io.loadmat('sTRSV_train.mat')
+validmat = scipy.io.loadmat('sTRSVdup_valid.mat')
+testmat = scipy.io.loadmat('sTRSVdup_valid.mat')
+trainmat = scipy.io.loadmat('sTRSVdup_train.mat')
 
 
 X_train = np.transpose(np.array(trainmat['tr'][0][0][0]),axes=(0,2,1))
@@ -45,19 +45,18 @@ reg = 1e-3
 print 'building model'
 nb_filters=32
 model = Sequential()
-model.add(LSTM(148,  W_regularizer=l2(reg),return_sequences=True, input_shape=(4,113)))
+model.add(LSTM(128,  W_regularizer=l2(reg),return_sequences=True, input_shape=(4,113)))
 model.add(Activation('relu'))
 model.add(Dropout(0.2))
-
 model.add(LSTM(256,  W_regularizer=l2(reg),return_sequences=True))
 model.add(Activation('relu'))
 model.add(Dropout(0.2))
-model.add(LSTM(128,  W_regularizer=l2(reg),return_sequences=True))
-model.add(Activation('relu'))
-model.add(Dropout(0.2))
-model.add(LSTM(64,  W_regularizer=l2(reg),return_sequences=True))
-model.add(Activation('relu'))
-model.add(Dropout(0.2))
+# model.add(LSTM(128,  W_regularizer=l2(reg),return_sequences=True))
+# model.add(Activation('relu'))
+# model.add(Dropout(0.2))
+# model.add(LSTM(64,  W_regularizer=l2(reg),return_sequences=True))
+# model.add(Activation('relu'))
+# model.add(Dropout(0.2))
 
 model.add(Flatten())
 
@@ -69,7 +68,7 @@ model.compile(loss='mse', optimizer='adam', metrics=["mse"])
 
 
 checkpointer = ModelCheckpoint(filepath="bestmodel3D.hdf5", verbose=1, save_best_only=True)
-earlystopper = EarlyStopping(monitor='val_loss', patience=20, verbose=1)
+earlystopper = EarlyStopping(monitor='val_loss', patience=15, verbose=1)
 
 X_valid=np.transpose(validmat['tr'][0][0][0],axes=(0,2,1))
 # X_valid=np.expand_dims(X_valid)
@@ -91,9 +90,8 @@ import scipy
 out=out.squeeze()
 print out.shape
 slope, intercept, r_value, p_value, std_err = scipy.stats.linregress(y_train, out)
-print r_value
-print slope
-print intercept
+print "r = ",r_value
+print "r^2 = ",r_value**2
 
 
 X_test=np.transpose(testmat['tr'][0][0][0],axes=(0,2,1))
@@ -110,9 +108,10 @@ import scipy
 out=y_out.squeeze()
 print out.shape
 slope, intercept, r_value, p_value, std_err = scipy.stats.linregress(y_test, out)
-print r_value
-print slope
-print intercept
+print "r = ",r_value
+print "r^2 = ",r_value**2
+# print slope
+# print intercept
 
 
 plt.figure(3)
